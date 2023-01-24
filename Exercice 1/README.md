@@ -1,3 +1,8 @@
-# Template p5 project
+# PONG!
+# Noémie Carrier
 
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+This is my attempt at the first exercice from CART263 at concordia
+the length of the paddles can be changed by changing the wPlayer variable OwO
+
+The code still needs minor details for the collision to be clean... it overlaps a bit.
+And it might need a start button! XD
