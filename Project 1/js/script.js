@@ -9,8 +9,8 @@ To do;
 (∩^o^)⊃━☆Display them on a horizontal manner 
 (∩^o^)⊃━☆impliment the perlin noise function to order them in the y axis https://p5js.org/reference/#/p5/noise 
 (∩^o^)⊃━☆Make them move vertically in relation to each other
+(∩^o^)⊃━☆Make the color palette change with time
 Make the color vary (lerp value changing over the number of clicks)
-Make the color palette change with time
 Make the particles move depending on the speed of the mouse
 Add sound effects
 ++ Particles drop down from the top
@@ -26,6 +26,10 @@ var b;
 var r1;
 var g1;
 var b1;
+var r2;
+var g2;
+var b2;
+let value = 0;
 
 function preload() {
 }
@@ -36,10 +40,16 @@ function setup() {
     for(let x = 0; x < width; x+=20){
         var y = height * noise(x);
         lines[x] = new Particle(x,y);
-        r = random(83,93);
-        g = random(19,29);
-        b = random(64,74);
-        lines[x].setColor(r,g,b);
+        r = random(83,95);
+        g = random(19,32);
+        b = random(68,80);
+        r1 = random(150,255);
+        g1 = random(4,15);
+        b1 = random(5,18);
+        r2 = random(220,255);
+        g2 = random(220,255);
+        b2 = random(180,240);
+        lines[x].setColors(r,g,b,r1,g1,b1,r2,g2,b2);
     }
 }
 function draw() {
@@ -51,6 +61,13 @@ function draw() {
     }
     this.offset += 0.01;
 }
+function mouseClicked(){
+        value += 0.1;
+        for(let i = 0; i< lines.length; i+= 20){
+            lines[i].changeColor(value);
+        }
+        
+    }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -63,17 +80,29 @@ class Particle { //Class - The part of code that holds all the information to ma
         this.speed = 2;
         this.offset = 0;
         this.lineHeight = 0;
-        this.colorRectangle;
+        this.colorOrigin;
+        this.colorLerp1;
+        this.colorLerp2;
+        this.interA;
+        this.interB;
+        this.value = value;
     }
     drawRectangle(){ //Method - a function that belongs to a class. 
-        fill(this.colorRectangle);
+        this.interA = lerpColor(this.colorOrigin,this.colorLerp1,this.value);
+        this.interB = lerpColor(this.colorLerp1,this.colorLerp2,this.value-1);
+        if (this.value <= 1){
+            fill(this.interA);
+            this.value += 0.001;  
+        }else if(this.value > 1){
+            fill(this.interB);
+            this.value += 0.001;
+        }
         rect(this.x, this.y, 19, -this.lineHeight, 5);
     }
-    setColor(r,g,b){
-        //fill(this.lineHeight,map(noise(offset),0,1,0,255),b);
-        this.colorRectangle = color(r+this.offset, g, b);
-        this.offset += 0.1;
-       
+    setColors(r,g,b,r1,g1,b1,r2,g2,b2){
+        this.colorOrigin = color(r, g, b);
+        this.colorLerp1 = color(r1,g1,b1);
+        this.colorLerp2 = color(r2,g2,b2);
     }
     changeHeight(offset,i){
         this.lineHeight = 50+(noise((2+i/100)+offset))*500;
@@ -81,5 +110,13 @@ class Particle { //Class - The part of code that holds all the information to ma
     }
     changeY(offset,i){
         this.y = map(noise(i/100,offset),0,1,windowHeight/2,windowHeight);
+    }
+    changeColor(value){
+        console.log(value);
+        if (value <= 1){
+            fill(this.interA);
+        }else if(value > 1){
+            fill(this.interB);
+        }
     }
 }
