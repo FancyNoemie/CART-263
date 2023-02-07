@@ -5,12 +5,13 @@ Noémie Carrier
 An abstract representation of the process of waking up.
 
 To do;
-(∩^o^)⊃━☆Line particles
-(∩^o^)⊃━☆Display them on a horizontal manner 
-(∩^o^)⊃━☆impliment the perlin noise function to order them in the y axis https://p5js.org/reference/#/p5/noise 
-(∩^o^)⊃━☆Make them move vertically in relation to each other
-(∩^o^)⊃━☆Make the color palette change with time
-Make the color vary (lerp value changing over the number of clicks)
+(∩^o^)⊃━☆ Line particles
+(∩^o^)⊃━☆ Display them on a horizontal manner 
+(∩^o^)⊃━☆ Impliment the perlin noise function to order them in the y axis https://p5js.org/reference/#/p5/noise 
+(∩^o^)⊃━☆ Make them move vertically in relation to each other
+(∩^o^)⊃━☆ Make the color palette change with time
+(⓿_⓿) Make it look more "awake" *Now with more spikes and height overtime!*
+-----> Make the color vary (lerp value changing over the number of clicks) (my tests are commented out)
 Make the particles move depending on the speed of the mouse
 Add sound effects
 ++ Particles drop down from the top
@@ -66,7 +67,7 @@ class Particle { //Class - The part of code that holds all the information to ma
         this.colorLerp2 = color(random(220,255),random(220),random(218));
         this.interA;
         this.interB;
-        this.value = value;
+        this.value = value; //identified as "value", because it is used as an increase overtime, or if the mouse is clicked
         
     }
     drawRectangle(){ //Method - a function that belongs to a class. 
@@ -80,7 +81,7 @@ class Particle { //Class - The part of code that holds all the information to ma
             this.value += 0.001;
         }
         rect(this.x, this.y, 19, -this.lineHeight, 5);
-        noiseDetail(2, 0.1*this.value);// original parameters (4,0.5)
+        noiseDetail(2, 0.1*this.value);//gets more "detailed" more spikes in the graph
     }
     changeHeight(offset,i){
         this.lineHeight = 40*this.value+(noise((2+i/100)+offset))*500;//increases overtime with this.value
