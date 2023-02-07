@@ -59,15 +59,15 @@ class Particle { //Class - The part of code that holds all the information to ma
     //Every class needs a constructor. Its a good place to put all your variables. 
         this.x = x;
         this.y = y;
-        this.speed = 2;
         this.offset = 0;
         this.lineHeight = 0;
-        this.interA;
-        this.interB;
-        this.value = value;
         this.colorOrigin = color(random(83,95), random(19,32), random(68,80));
         this.colorLerp1 = color(random(150,255),random(4,15),random(5,18));
         this.colorLerp2 = color(random(220,255),random(220),random(218));
+        this.interA;
+        this.interB;
+        this.value = value;
+        
     }
     drawRectangle(){ //Method - a function that belongs to a class. 
         this.interA = lerpColor(this.colorOrigin,this.colorLerp1,this.value);
@@ -80,10 +80,10 @@ class Particle { //Class - The part of code that holds all the information to ma
             this.value += 0.001;
         }
         rect(this.x, this.y, 19, -this.lineHeight, 5);
+        noiseDetail(2, 0.1*this.value);// original parameters (4,0.5)
     }
     changeHeight(offset,i){
-        this.lineHeight = 40*this.value+(noise((2+i/100)+offset))*500;
-
+        this.lineHeight = 40*this.value+(noise((2+i/100)+offset))*500;//increases overtime with this.value
         //lines[i].lineHeight = map(noise(i/100,offset),0,1,300,10); // why is it so different?????
     }
     changeY(offset,i){
