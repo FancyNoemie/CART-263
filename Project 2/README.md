@@ -1,8 +1,9 @@
-# PONG!
+# Data Visualisation
 # Noémie Carrier
 
-This is my attempt at the first exercice from CART263 at concordia
-the length of the paddles can be changed by changing the wPlayer variable OwO
+Here is my project for CART 263, DATA VISUALISATION
+I will try to illustrate the complexity and richness of a community based(?) library of projects and information.
+Ideally, the user will be able to navigate the different themes and subjects to find a project in particular. 
 
-The code still needs minor details for the collision to be clean... it overlaps a bit.
-And it might need a start button! XD
+This will simply be a fun and interactive way to navigate the library, based on data from the projects submitted between 2005 and 2020.
+https://www.kaggle.com/datasets/kingburrito666/instructables-diy-all-projects?select=projects_circuits.csv
