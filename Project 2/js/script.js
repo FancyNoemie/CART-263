@@ -1,3 +1,7 @@
+//Create a unique color for each!
+
+
+
 
 // State of spiral
 let x, y;
@@ -8,7 +12,7 @@ let numSteps = 1;
 let turnCounter = 1;
 
 // Scale / resolution of spiral
-let stepSize = 20;
+let stepSize = 5;
 let totalSteps;
 
 // Data in .csv format
@@ -19,6 +23,7 @@ let living;
 let outside;
 let workshop;
 let points = [];
+let size;
 
 function preload() {
   circuits = loadTable("assets/projects_circuits.csv", "csv", "header");
@@ -51,26 +56,46 @@ function setup() {
   }
 }
 
+sub = [];
 // Function to test what subcategory the project is in
-function isPrime(value) {
-  if (value == 1) return false;
-  for (let i = 2; i <= sqrt(value); i++) {
-    if (value % i == 0) {
-      return false;
+function checkSubcategory(value) {
+  //(∩^o^)⊃━☆array
+    //check the string dans subcategory
+    //compare to see if it's already in the array?? https://stackoverflow.com/questions/237104/how-do-i-check-if-an-array-includes-a-value-in-javascript
+    //https://www.w3schools.com/jsref/jsref_includes_array.asp
+    //put the string in the array if not there
+  
+    //sub.includes(circuits.getString(r, 3));
+    if (sub.includes(circuits.getString(value, 3)) == false){
+      sub.push(circuits.getString(value, 3));
+  
+    console.log (sub);
+  }
+  else{ //tell me where the fuck it is in the array (because there is no function to do that)
+    for(let i = 0; i < sub.length; i++){
+      if (sub[i]==circuits.getString(value, 3)){
+        return (i);
+      }
     }
   }
-  return true;
 }
+
+
 
 function draw(){
   // If prime draw circle
-  if (isPrime(step)) {
-    for(let i = 0; i< stepSize; i+= 20) {
-    points[i].drawDatapoint(x,y,stepSize);
-    }
+  
+  var return_value = checkSubcategory(step);
+    let size = circuits.getString(step, 4);
+    print (size);
+    for(let i = 0; i< stepSize; i++) {
+      points[i].drawDatapoint(x,y,stepSize,size,return_value,);
   }
+  //console.log (sub);
 
+ 
   // Connect current to previous with a line
+  //stroke(255);
   line(x, y, px, py);
   px = x;
   py = y;
@@ -112,12 +137,15 @@ function draw(){
 class Particle { //Class - The part of code that holds all the information to make an object, like a blue print. 
   constructor() { //Constructor - A piece of code that runs when you make an instance, like Setup. 
   //Every class needs a constructor. Its a good place to put all your variables. 
-    
+  this.c = color(random(83,95), random(19,32), random(68,80));
+
   }
 
-  drawDatapoint(x,y,stepSize){ //Method - a function that belongs to a class. 
-    fill(255);
-    stroke(255);
-    circle(x, y, stepSize * 0.5);
+  
+  drawDatapoint(x,y,stepSize,size,return_value){ //Method - a function that belongs to a class. 
+    fill(return_value * 10);
+    noStroke();
+    circle(x, y,(map(size,0,1000,stepSize,(stepSize*5))));
   }
+
 }
