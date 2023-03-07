@@ -56,28 +56,27 @@ sub = [];
 subColor = [];
 let c;
 function checkSubcategory(value) {
-  if (sub.includes(circuits.getString(value, 3)) == false){               // Check if the value is in the (sub) array
-    sub.push(circuits.getString(value, 3));                               // Add it to the sub array
-    c = color(color(random(83,255), random(19,255), random(68,100)));     // Create a color
-    subColor.push(c);                                                     // Save the color for later (might be the cause of the problem of the first 4)
-    text(circuits.getString(value, 3), 20, 30+(sub.length*10));
+  if (sub.includes(circuits.getString(value, 3)) == false){          // Check if the value is in the (sub) array, if not;
+    sub.push(circuits.getString(value, 3));                          // Add it to the sub array
+    c = color(color(random(83,255), random(19,255), random(68,100)));// Create a color
+    subColor.push(c);                                                // Save the color for later
   }
-  else{ //tell me where it is in the array (because there is no function to do that)
-    for(let i = 0; i < sub.length; i++){
-      if (sub[i]==circuits.getString(value, 3)){
-        fill(subColor[i]);
-        return (i);        
+  else{                                                              // Basically giving me numbers instead of text, so I can use it later
+    for(let i = 0; i < sub.length; i++){                             // Go trough all the values in the (sub) array
+      if (sub[i]==circuits.getString(value, 3)){                     // If it is in the array already
+        fill(subColor[i]);                                           // Set the corresponding color right before we use it to make the dataPoint
+        return (i);                                                  // Because of the for loop, i corresponds to the number of the element in the array       
       }
     }
   }
 }
 
 function draw(){
-  // Draw a particle in the spiral
-  var return_value = checkSubcategory(step);// Take the "return" number
-  let size = circuits.getString(step, 4);// Number of likes on a project 
+  
+  var return_value = checkSubcategory(step);                          // Take the "return" number
+  let size = circuits.getString(step, 4);                             // Number of likes on a project 
   for(let i = 0; i< stepSize; i++) {
-    points[i].drawDatapoint(x,y,stepSize,size,return_value);
+    points[i].drawDatapoint(x,y,stepSize,size,return_value);          // Draw a particle in the spiral
   }
 
   // Move according to state
@@ -96,7 +95,7 @@ function draw(){
       break;
   }
   
-  // Change state
+  // Change state (turn)
   if (step % numSteps == 0) {
     state = (state + 1) % 4;
     turnCounter++;
@@ -106,7 +105,7 @@ function draw(){
   }
   step++;
 
-  // Are we done?
+  // Are we done? (or else it will go on forever!)
   if (step > totalSteps) {
     noLoop();
   }
