@@ -1,18 +1,13 @@
-//Create a unique color for each!
-
-
-
 
 // State of spiral
 let x, y;
-let px, py; //(Previous x and y)
 let step = 1;
 let state = 0;
 let numSteps = 1;
 let turnCounter = 1;
 
 // Scale / resolution of spiral
-let stepSize = 5;
+let stepSize = 5;//<-------CHANGE THE RESOLUTION HERE!
 let totalSteps;
 
 // Data in .csv format
@@ -25,23 +20,23 @@ let workshop;
 let points = [];
 let size;
 
+// Loading .csv files
 function preload() {
-  circuits = loadTable("assets/projects_circuits.csv", "csv", "header");
-  cooking = loadTable("assets/projects_cooking.csv", "csv", "header");
-  craft = loadTable("assets/projects_craft.csv", "csv", "header");
-  living = loadTable("assets/projects_living.csv", "csv", "header");
-  outside = loadTable("assets/projects_outside.csv", "csv", "header");
-  workshop = loadTable("assets/projects_workshop.csv", "csv", "header");
+  circuits = loadTable("assets/projects_circuits.csv", "csv", "header");//<-------CHANGE THE DATASET HERE!
+  //cooking = loadTable("assets/projects_cooking.csv", "csv", "header");
+  //craft = loadTable("assets/projects_craft.csv", "csv", "header");
+  //living = loadTable("assets/projects_living.csv", "csv", "header");
+  //outside = loadTable("assets/projects_outside.csv", "csv", "header");
+  //workshop = loadTable("assets/projects_workshop.csv", "csv", "header");
 }
 
-///////////////////////////////////SPIRAL/////////////////////////////////////////
-
+/////////////////////////////////////////////SPIRAL////////////////////////////////////////////////
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(1,30,30);
 
-  // set up spiral
+  // Set up spiral
   const cols = width / stepSize;
   const rows = height / stepSize;
   totalSteps = cols * rows;
@@ -56,49 +51,34 @@ function setup() {
   }
 }
 
+// Function to test what subcategory the project is in, and creates an array with all the values
 sub = [];
-// Function to test what subcategory the project is in
+subColor = [];
+let c;
 function checkSubcategory(value) {
-  //(∩^o^)⊃━☆array
-    //check the string dans subcategory
-    //compare to see if it's already in the array?? https://stackoverflow.com/questions/237104/how-do-i-check-if-an-array-includes-a-value-in-javascript
-    //https://www.w3schools.com/jsref/jsref_includes_array.asp
-    //put the string in the array if not there
-  
-    //sub.includes(circuits.getString(r, 3));
-    if (sub.includes(circuits.getString(value, 3)) == false){
-      sub.push(circuits.getString(value, 3));
-  
-    console.log (sub);
+  if (sub.includes(circuits.getString(value, 3)) == false){               // Check if the value is in the (sub) array
+    sub.push(circuits.getString(value, 3));                               // Add it to the sub array
+    c = color(color(random(83,255), random(19,255), random(68,100)));     // Create a color
+    subColor.push(c);                                                     // Save the color for later (might be the cause of the problem of the first 4)
+    text(circuits.getString(value, 3), 20, 30+(sub.length*10));
   }
-  else{ //tell me where the fuck it is in the array (because there is no function to do that)
+  else{ //tell me where it is in the array (because there is no function to do that)
     for(let i = 0; i < sub.length; i++){
       if (sub[i]==circuits.getString(value, 3)){
-        return (i);
+        fill(subColor[i]);
+        return (i);        
       }
     }
   }
 }
 
-
-
 function draw(){
-  // If prime draw circle
-  
-  var return_value = checkSubcategory(step);
-    let size = circuits.getString(step, 4);
-    print (size);
-    for(let i = 0; i< stepSize; i++) {
-      points[i].drawDatapoint(x,y,stepSize,size,return_value,);
+  // Draw a particle in the spiral
+  var return_value = checkSubcategory(step);// Take the "return" number
+  let size = circuits.getString(step, 4);// Number of likes on a project 
+  for(let i = 0; i< stepSize; i++) {
+    points[i].drawDatapoint(x,y,stepSize,size,return_value);
   }
-  //console.log (sub);
-
- 
-  // Connect current to previous with a line
-  //stroke(255);
-  line(x, y, px, py);
-  px = x;
-  py = y;
 
   // Move according to state
   switch (state) {
@@ -132,18 +112,13 @@ function draw(){
   }
 }
 
-/////////////////////////////////PARTICLES////////////////////////////////////////////////
+/////////////////////////////////////////////////PARTICLES//////////////////////////////////////////////////
 
 class Particle { //Class - The part of code that holds all the information to make an object, like a blue print. 
   constructor() { //Constructor - A piece of code that runs when you make an instance, like Setup. 
   //Every class needs a constructor. Its a good place to put all your variables. 
-  this.c = color(random(83,95), random(19,32), random(68,80));
-
   }
-
-  
   drawDatapoint(x,y,stepSize,size,return_value){ //Method - a function that belongs to a class. 
-    fill(return_value * 10);
     noStroke();
     circle(x, y,(map(size,0,1000,stepSize,(stepSize*5))));
   }

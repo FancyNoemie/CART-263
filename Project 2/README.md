@@ -27,3 +27,13 @@ for (var r = 0; r < circuits.getRowCount(); r++){ // Cycle through each row of t
 // https://thecodingtrain.com/CodingChallenges/167-prime-spiral.html
 // https://youtu.be/a35KWEjRvc0
 
+//(∩^o^)⊃━☆array
+    //check the string dans subcategory
+    //compare to see if it's already in the array?? https://stackoverflow.com/questions/237104/how-do-i-check-if-an-array-includes-a-value-in-javascript
+    //https://www.w3schools.com/jsref/jsref_includes_array.asp
+
+Ideas for the future;
+identifications
+hand pick colors
+choose between the big categories
+do something with the most popular projects of each categories, get the name or a link <3
