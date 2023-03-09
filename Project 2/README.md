@@ -1,4 +1,6 @@
+
 # Data Visualization
+
 # Noémie Carrier
 
 Here is my project for CART 263, DATA VISUALIZATION
@@ -41,9 +43,12 @@ for (var r = 0; r < circuits.getRowCount(); r++){ // Cycle through each row of t
 Another important element was the "include" part, to check if something is already in the array.
   https://www.w3schools.com/jsref/jsref_includes_array.asp
 
-Plans for the future:
+> Debugging for the future:
+> There is a main bug I did not have the chance to fix, and it's the first 4 dots and titles appearing white and black respectively.
+> They appear in default colors, meaning they were not assigned any colors yet when they appeared. So my theory is this: for a mysterious reason, the array sub and subColor do not correspond. Meaning that the "sub" array is 4 data ahead from the subColor. There might be a workaround if I can fin a way to use the return data of the "sub" instead. 
 
-Integrate the 6 different datasets
-Hand pick colors, to better see the difference
-Choose between the big categories, and maybe even subcategories, with a preview of how popular they are (choosing between different blob sizes)
-Do something with the most popular projects of each categories, get the name or a link <3
+> Plans for the future:
+> Integrate the 6 different datasets
+> Hand pick colors, to better see the difference
+> Choose between the big categories, and maybe even subcategories, with a preview of how popular they are (choosing between different blob sizes)
+> Do something with the most popular projects of each categories, get the name or a link <3

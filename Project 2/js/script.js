@@ -60,6 +60,7 @@ function checkSubcategory(value) {
     sub.push(circuits.getString(value, 3));                          // Add it to the sub array
     c = color(color(random(83,255), random(19,255), random(68,100)));// Create a color
     subColor.push(c);                                                // Save the color for later
+    text(circuits.getString(value, 3), 20, 30+(sub.length*10));      // Write down the subcategory
   }
   else{                                                              // Basically giving me numbers instead of text, so I can use it later
     for(let i = 0; i < sub.length; i++){                             // Go trough all the values in the (sub) array
